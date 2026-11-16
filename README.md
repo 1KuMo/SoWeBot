@@ -1,4 +1,4 @@
-# SoWeBot ⡞⠳⣄⣀⣠⠞⢷ ֹ۪
+# SoWeBot 𐔌՞. .՞𐦯
 *(Work in Progress — V1 Core Engine Functional)*
 
 **SoWeBot** is an automated pipeline and tool designed to interface with the SoWeSign student portal, ensuring students never miss an attendance check-in (Elearning, remote courses, etc.) by handling session authentication and real-time course timing checks automatically.
@@ -33,3 +33,17 @@ SOWEBOT/
 ├── main.py                # Core engine, authentication flow, and time-window logic
 ├── .env                   # Environment variables (SWS_KEY, REFRESH_TOKEN) (ignored by git)
 └── README.md
+```
+
+---
+> **Note:** I used AI to help structure and complete this documentation to make it as thorough and clear as possible. Contributions and feedback are warmly welcomed!
+
+```text
+ /\_/\  
+( o.o ) 
+ > ^ <  
+            ____  __    __    ____
+           (_   _)/  \  / _\ (    \
+            )( (   O )/    \ ) D (
+           (__) \__/ \_/\_/(____/
+```
