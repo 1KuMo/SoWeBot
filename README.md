@@ -15,6 +15,16 @@ Managing attendance on school portals can be tedious, especially when session to
 
 ---
 
+## 🚀 Upcoming Features (Roadmap)
+
+The core engine is ready. Here is what is coming next to make **SoWeBot** fully operational for daily student life:
+- **Discord Bot Integration (`discord.py`):** Implementing a fully asynchronous Discord bot running on a secondary local Arch Linux machine.
+- **Automated Background Polling:** Setting up background task loops to check course availability in real time without manual script execution.
+- **Instant Alerts & Notifications:** Automatically broadcasting alerts straight to a dedicated Discord text channel (with role pings) the exact moment a course attendance window opens, so you and your peers never miss a sign-in.
+- **Systemd Service Setup:** Packaging the bot as a background daemon on Arch Linux for seamless 24/7 reliability.
+
+---
+
 ## 🛠️ Tech Stack & Architecture
 
 - **Language:** Python 3.10+
@@ -46,5 +56,4 @@ SOWEBOT/
           (_  _)/  \  / _\ (    \
             )( (  O )/    \ ) D (
            (__) \__/ \_/\_/(____/
-
 ```
