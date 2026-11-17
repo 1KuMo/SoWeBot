@@ -2,6 +2,7 @@ import requests
 import os
 from dotenv import find_dotenv, load_dotenv, set_key
 from datetime import datetime, date, timedelta
+import json
 
 env_file = find_dotenv()
 load_dotenv(env_file)
@@ -13,7 +14,7 @@ if not os.getenv("SWS_KEY"):
 ### GET 
 token = os.getenv("SWS_KEY")
 url = "https://app.sowesign.com/api/student-portal/future-courses?limit=25"
-aScanner = ["ELEARNING", "CONFERENCE", "CRS-TD-CV"] # AUTONOMIE ? 
+aScanner = ["ELEARNING", "CONFERENCE", "CRS-TD-CV", "CRS"] # AUTONOMIE ? 
 
 headers = {
     "Authorization" : "Bearer " + token,
@@ -21,6 +22,7 @@ headers = {
 }
 
 ### POST 
+# le refresh token expire au 1 mois après sa création
 refreshToken = os.getenv("REFRESH_TOKEN")
 url_post = "https://app.sowesign.com/api/portal/authentication/token/refresh"
 headers_post = {
@@ -32,8 +34,9 @@ headers_post = {
 def refresh_token():
     response = requests.post(url_post, json=None, headers=headers_post, timeout=15)
     statut = response.status_code
+    print(f"refresh statut {statut}")
 
-    if statut == 200 :
+    if statut == 201 : # différent code quand on change et quand on obtient 
         return response.json(), True
     else :
         return f'error: {statut}', False
@@ -42,6 +45,7 @@ def refresh_token():
 def get_json(headers, url):
     response = requests.get(headers=headers, url=url, timeout=15)
     statut = response.status_code
+    # print(f"get_json statut {statut}")
 
     if statut in (400, 401) :
         new_data, ret = refresh_token()
@@ -120,16 +124,30 @@ def todayCourses(tab_cours):
 
 def toScan(tab):
     now = datetime.now().astimezone()
+    cours_tab = []
 
-    for cours in tab:
+    for cours in cours_tab:
         heure_ouverture = cours["debut"] - cours["opening"]
         heure_fermeture = cours["fin"] + cours["closing"]
 
         if heure_ouverture <= now <= heure_fermeture:
-            print(f"to scan : {cours['id']}")
+            # print(f"to scan : {cours['id']}")
+            cours_tab.append(cours)
+    
+    return tab
 
 
-edt = get_json(headers, url)
-cours = extraire_cours(edt)
-cours_du_jour = todayCourses(cours)
-toScan(cours_du_jour)
+# AI CODE - skill issue de ma part
+if __name__ == "__main__":
+    import contextlib, sys
+
+    with contextlib.redirect_stdout(sys.stderr):
+        edt = get_json(headers, url)
+        if isinstance(edt, str):
+            raise RuntimeError(edt)
+
+        cours = extraire_cours(edt)
+        cours_du_jour = todayCourses(cours)
+        actifs = toScan(cours_du_jour)
+
+    print(json.dumps(actifs, default=str))   
