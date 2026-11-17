@@ -1,7 +1,12 @@
 # SoWeBot 𐔌՞. .՞𐦯
-*(Work in Progress — V1 Core Engine Functional)*
+*(Work in Progress — V1 Modular & Discord Integration)*
 
-**SoWeBot** is an automated pipeline and tool designed to interface with the SoWeSign student portal, ensuring students never miss an attendance check-in (Elearning, remote courses, etc.) by handling session authentication and real-time course timing checks automatically.
+**SoWeBot** is an automated pipeline and tool designed to interface with the SoWeSign student portal, ensuring students never miss an attendance check-in (Elearning, remote courses, etc.) by handling session authentication, real-time course timing checks, and broadcasting reminders directly to a Discord server.
+
+---
+
+> ⚠️ **Important Note:** **SoWeBot** does **not** automatically sign or check you in on the school portal. Its sole purpose is to act a smart reminder system, notifying you on Discord the exact moment an attendance window opens so you never forget to sign manually. 
+> *Want access to the notification server? Feel free to contact me on Discord!*
 
 ---
 
@@ -12,22 +17,14 @@ Managing attendance on school portals can be tedious, especially when session to
 2. **Real-time Schedule Fetching:** Pulls future courses directly from the SoWeSign student portal API dynamically.
 3. **Filtering & Categorization:** Isolates target course types (Elearning, Conferences, etc.) and isolates today's active schedule.
 4. **Precision Timing:** Computes exact opening and closing windows for attendance checking based on course offsets (`openingDelay` and `closingDelay`).
-
----
-
-## 🚀 Upcoming Features (Roadmap)
-
-The core engine is ready. Here is what is coming next to make **SoWeBot** fully operational for daily student life:
-- **Discord Bot Integration (`discord.py`):** Implementing a fully asynchronous Discord bot running on a secondary local Arch Linux machine.
-- **Automated Background Polling:** Setting up background task loops to check course availability in real time without manual script execution.
-- **Instant Alerts & Notifications:** Automatically broadcasting alerts straight to a dedicated Discord text channel (with role pings) the exact moment a course attendance window opens, so you and your peers never miss a sign-in.
-- **Systemd Service Setup:** Packaging the bot as a background daemon on Arch Linux for seamless 24/7 reliability.
+5. **Discord Notifications:** Runs asynchronously via a secondary local Arch Linux machine to alert students in real time.
 
 ---
 
 ## 🛠️ Tech Stack & Architecture
 
 - **Language:** Python 3.10+
+- **Bot Framework:** `discord.py` (Asynchronous event loops & background tasks)
 - **HTTP Requests:** `requests`
 - **Environment Management:** `python-dotenv` (`load_dotenv`, `set_key`)
 - **Time & Date Management:** Native Python `datetime`, `date`, `timedelta`
@@ -39,13 +36,15 @@ The core engine is ready. Here is what is coming next to make **SoWeBot** fully 
 
 ```text
 SOWEBOT/
-├── venv/                  # Python virtual environment (ignored by git)
-├── main.py                # Core engine, authentication flow, and time-window logic
-├── .env                   # Environment variables (SWS_KEY, REFRESH_TOKEN) (ignored by git)
+├── discord_bot/
+│   └── main.py            # Discord bot wrapper & background task loops
+├── sowebot/
+│   ├── sowebot.py         # Core engine, API calls, auto-refresh, and time-window logic
+│   └── help.md            # Technical documentation & data structures
+├── .env                   # Environment variables (SWS_KEY, REFRESH_TOKEN, BOT_TOKEN) (ignored by git)
 └── README.md
 ```
 
----
 > **Note:** I used AI to help structure and complete this documentation to make it as thorough and clear as possible. Contributions and feedback are warmly welcomed!
 
 ```text
