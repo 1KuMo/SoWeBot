@@ -5,7 +5,7 @@
 
 ---
 
-> **Important Note:** **SoWeBot** does **not** automatically sign or check you in on the school portal. Its sole purpose is to act a smart reminder system, notifying you on Discord the exact moment an attendance window opens so you never forget to sign manually.
+> **Important Note:** **SoWeBot** does **not** automatically sign or check you in on the school portal. Its sole purpose is to act a smart reminder system, notifying you on Discord the exact moment an attendance window opens so you never forget to sign manually.<br>
 > *Want access to the notification server? Feel free to contact me on Discord! n3li0*
 
 ---
