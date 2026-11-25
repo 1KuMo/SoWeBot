@@ -3,7 +3,7 @@ import json
 import logging
 import os
 import subprocess
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 import discord
@@ -64,9 +64,16 @@ def get_active_courses():
     return courses
 
 
+def parse_delay(value):
+    parties = [int(partie) for partie in str(value).split(":")]
+    return timedelta(hours=parties[-3], minutes=parties[-2], seconds=parties[-1])
+
+
 def build_embed(cours):
     debut = datetime.fromisoformat(cours["debut"])
     fin = datetime.fromisoformat(cours["fin"])
+    ouverture = debut - parse_delay(cours["opening"])
+    fermeture = debut + parse_delay(cours["closing"])
     embed = discord.Embed(
         title=f"⏰ {cours['nom']}",
         description=f"Fenêtre de pointage ouverte — `{cours['categorie']}`",
@@ -75,7 +82,7 @@ def build_embed(cours):
     )
     embed.add_field(name="Début", value=debut.strftime("%H:%M"), inline=True)
     embed.add_field(name="Fin", value=fin.strftime("%H:%M"), inline=True)
-    embed.add_field(name="Fenêtre", value=f"-{cours['opening']} / +{cours['closing']}", inline=True)
+    embed.add_field(name="Fenêtre", value=f"{ouverture.strftime('%H:%M')} → {fermeture.strftime('%H:%M')}", inline=True)
     return embed
 
 

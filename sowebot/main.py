@@ -14,7 +14,7 @@ if not os.getenv("SWS_KEY"):
 ### GET 
 token = os.getenv("SWS_KEY")
 url = "https://app.sowesign.com/api/student-portal/future-courses?limit=25"
-aScanner = ["ELEARNING", "CONFERENCE", "CRS-TD-CV", "CRS"] # AUTONOMIE ? 
+aScanner = ["ELEARNING", "CONFERENCE"] # AUTONOMIE ? 
 
 headers = {
     "Authorization" : "Bearer " + token,
@@ -126,12 +126,12 @@ def todayCourses(tab_cours):
 
 
 def toScan(tab):
-    now = datetime.now()
+    now = datetime.now().astimezone()
     cours_tab = []
 
     for cours in tab:
         heure_ouverture = cours["debut"] - cours["opening"]
-        heure_fermeture = cours["fin"] + cours["closing"]
+        heure_fermeture = cours["debut"] + cours["closing"]
 
         if heure_ouverture <= now <= heure_fermeture:
             # print(f"to scan : {cours['id']}")
