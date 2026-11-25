@@ -103,7 +103,7 @@ It prints the active courses as JSON on stdout; debug output goes to stderr.
 ### 5. Two things to keep in mind
 
 - The machine should use the same timezone as the portal: course times are compared as local naive datetimes.
-- `REFRESH_TOKEN` expires after about a month. Renew it manually when the refresh starts failing.
+- `REFRESH_TOKEN` expires after about a month. Renew it manually when the refresh starts failing. ( sorry about that ) 
 
 ---
 
