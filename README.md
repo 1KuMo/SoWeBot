@@ -45,7 +45,7 @@ SOWEBOT/
 └── README.md
 ```
 
-> **Note:** I used AI to help structure and complete this documentation to make it as thorough and clear as possible. Contributions and feedback are warmly welcomed!
+> **Note:** I used AI to help structure and complete this documentation to make it as thorough and clear as possible, + the discord bot is mostly ( absolutely ) vibe-coded since I can't deal with discord bots idk why.  Contributions and feedback are warmly welcomed!
 
 ```text
  /\_/\  
