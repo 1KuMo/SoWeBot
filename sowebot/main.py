@@ -51,9 +51,12 @@ def get_json(headers, url):
         new_data, ret = refresh_token()
         if ret :
             new_token = new_data["token"]
+            new_refresh = next((v for k, v in new_data.items() if "refresh" in k.lower() and isinstance(v, str)), refreshToken)
 
             set_key(env_file, "SWS_KEY", new_token)
+            set_key(env_file, "REFRESH_TOKEN", new_refresh)
             load_dotenv(env_file, override=True)
+            headers_post["Authorization"] = "Bearer " + new_refresh
 
             headers["Authorization"] = "Bearer " + new_token
             response = requests.get(headers=headers, url=url, timeout=15)
@@ -123,10 +126,10 @@ def todayCourses(tab_cours):
 
 
 def toScan(tab):
-    now = datetime.now().astimezone()
+    now = datetime.now()
     cours_tab = []
 
-    for cours in cours_tab:
+    for cours in tab:
         heure_ouverture = cours["debut"] - cours["opening"]
         heure_fermeture = cours["fin"] + cours["closing"]
 
@@ -134,7 +137,7 @@ def toScan(tab):
             # print(f"to scan : {cours['id']}")
             cours_tab.append(cours)
     
-    return tab
+    return cours_tab
 
 
 # AI CODE - skill issue de ma part
