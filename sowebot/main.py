@@ -14,7 +14,9 @@ if not os.getenv("SWS_KEY"):
 ### GET 
 token = os.getenv("SWS_KEY")
 url = "https://app.sowesign.com/api/student-portal/future-courses?limit=25"
-aScanner = ["ELEARNING", "CONFERENCE"] # AUTONOMIE ? 
+aScanner = ["ELEARNING", "CONFERENCE", "CRS"] 
+# if you want notifications for every courses, add "ACCOMPGT", "CRS", and "CRS-CV". 
+# ("AUTONOMIE" ? idk yet if we have to get attendance for this type ) 
 
 headers = {
     "Authorization" : "Bearer " + token,
@@ -98,10 +100,10 @@ def extraire_cours(edt:list):
                 "date": cours["date"],
                 "debut": datetime.fromisoformat(
                     cours["date"] + "T" + cours["start"]
-                ),
+                ).astimezone(),
                 "fin": datetime.fromisoformat(
                     cours["date"] + "T" + cours["end"]
-                ),
+                ).astimezone(),
                 "categorie": cours["data"]["data7"],
                 "opening": timedelta(minutes=cours["openingDelay"]),
                 "closing": timedelta(minutes=cours["closingDelay"])
@@ -117,7 +119,7 @@ def todayCourses(tab_cours):
     today = date.today().isoformat()
 
     for cours in tab_cours:
-        if cours["date"] == today:
+        if cours["debut"].date().isoformat() == today:
             tab.append(cours)
 
     return tab
