@@ -73,7 +73,7 @@ def build_embed(cours):
     debut = datetime.fromisoformat(cours["debut"])
     fin = datetime.fromisoformat(cours["fin"])
     ouverture = debut - parse_delay(cours["opening"])
-    fermeture = debut + parse_delay(cours["closing"])
+    fermeture = fin 
     embed = discord.Embed(
         title=f"⏰ {cours['nom']}",
         description=f"Fenêtre de pointage ouverte — `{cours['categorie']}`",
