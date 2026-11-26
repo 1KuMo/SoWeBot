@@ -14,7 +14,7 @@ if not os.getenv("SWS_KEY"):
 ### GET 
 token = os.getenv("SWS_KEY")
 url = "https://app.sowesign.com/api/student-portal/future-courses?limit=25"
-aScanner = ["ELEARNING", "CONFERENCE", "CRS"] 
+aScanner = ["ELEARNING", "CONFERENCE"] 
 # if you want notifications for every courses, add "ACCOMPGT", "CRS", and "CRS-CV". 
 # ("AUTONOMIE" ? idk yet if we have to get attendance for this type ) 
 
